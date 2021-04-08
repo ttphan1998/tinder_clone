@@ -6,7 +6,7 @@ This project is a clone of Tinder
 
 ## Getting Started
 
-Group Members: 
+Group Members:  
 Thai Quoc Tuan  
 Nguyen Quang Trieu  
 Phan Tuan Thanh  
