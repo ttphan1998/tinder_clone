@@ -149,7 +149,7 @@ class _ChatPageState extends State<ChatPage> {
                     ],
                   ),
                 ),
-                
+
                 new SizedBox(
                   height: ScreenUtil().setHeight(20.0),
                 ),
