@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tinder_clone/data/tinder_clone_icons.dart';
 import 'package:tinder_clone/pages/phone_login.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:tinder_clone/pages/root_app.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -10,6 +14,38 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final FacebookLogin fbLogin = new FacebookLogin();
+  bool isFacebookLoginIn = false;
+  String errorMessage = '';
+  String successMessage = '';
+
+  Future<User> facebookLogin(BuildContext context) async{
+    User currentUser;
+    try {
+      final FacebookLoginResult facebookLoginResult =
+      await fbLogin.logIn(['email']);
+      if (facebookLoginResult.status == FacebookLoginStatus.loggedIn) {
+        FacebookAccessToken facebookAccessToken =
+            facebookLoginResult.accessToken;
+        AuthCredential credential = FacebookAuthProvider.credential(
+           facebookAccessToken.token);
+        User user = (await auth.signInWithCredential(credential)).user;
+        print("signed in" + user.displayName);
+        return user;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return currentUser;
+  }
+
+  Future<bool> facebookLogout() async {
+    await auth.signOut();
+    await fbLogin.logOut();
+    return true;
+  }
+
 
   GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>() ;
 
@@ -101,10 +137,22 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: Colors.white,
                             elevation: 0.0,
                             onPressed: () {
-                              var snkBAr = new SnackBar(
-                                  content: new Text(
-                                      "You can add this feature dev 😍"));
-
+                              facebookLogin(context).then((user) {
+                                if (user != null){
+                                  print('Logged in successfully.');
+                                  setState(() {
+                                    isFacebookLoginIn = true;
+                                    successMessage =
+                                    'Logged in successfully.\nEmail : ${user.email}\nYou can now navigate to Home Page.';
+                                  });
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => RootPage()));
+                                } else{
+                                  print('Error while login.');
+                                }
+                              });
                             },
                             child: new Row(
                               mainAxisAlignment: MainAxisAlignment.center,
