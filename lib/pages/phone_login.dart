@@ -3,8 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tinder_clone/pages/root_app.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sweetalert/sweetalert.dart';
 
 class PhoneNumberScreen extends StatelessWidget {
+  final phoneNumber = TextEditingController();
+  final countryCode = TextEditingController();
+  static String errorMessage = "";
+  static bool loginResult = false;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -47,6 +53,8 @@ class PhoneNumberScreen extends StatelessWidget {
                         new Expanded(
                           flex: 3,
                           child: new TextField(
+                            key: Key("Country code"),
+                            controller: countryCode,
                             keyboardType: TextInputType.number,
                             cursorColor: Theme.of(context).primaryColor,
                             decoration: new InputDecoration(
@@ -63,6 +71,8 @@ class PhoneNumberScreen extends StatelessWidget {
                         new Expanded(
                             flex: 7,
                             child: new TextField(
+                              key: Key("Phone number"),
+                              controller: phoneNumber,
                               keyboardType: TextInputType.number,
                               cursorColor: Theme.of(context).primaryColor,
                               decoration: new InputDecoration(
@@ -84,11 +94,7 @@ class PhoneNumberScreen extends StatelessWidget {
                       height: ScreenUtil().setHeight(40.0),
                     ),
                     new GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => RootPage()));
-                      },
+                      onTap: () => phoneLogin(context),
                       child: new Container(
                         decoration: new BoxDecoration(
                             borderRadius: new BorderRadius.circular(90.0),
@@ -106,6 +112,7 @@ class PhoneNumberScreen extends StatelessWidget {
                         child: Center(
                           child: new Text(
                             "CONTINUE",
+                            key: Key("CONTINUE"),
                             style: new TextStyle(
                                 color: Colors.white,
                                 letterSpacing: 1.2,
@@ -121,5 +128,27 @@ class PhoneNumberScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+  String phoneLogin(BuildContext context){
+    if(phoneNumber.text == "" && countryCode.text == ""){
+      errorMessage = "Please type your phone number";
+      SweetAlert.show(context, subtitle: errorMessage, style: SweetAlertStyle.error);
+    }
+    else if (countryCode.text == ""){
+      errorMessage = "Country code must not be empty";
+      SweetAlert.show(context, subtitle: errorMessage, style: SweetAlertStyle.error);
+    }
+    else if(phoneNumber.text == ""){
+      errorMessage = "Phone number must not be empty";
+      SweetAlert.show(context, subtitle: errorMessage, style: SweetAlertStyle.error);
+    }
+    else {
+      errorMessage = null;
+      loginResult = true;
+      Navigator.pop(context);
+      Navigator.pop(context);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => RootPage()));
+    }
+    return null;
   }
 }

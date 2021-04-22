@@ -40,6 +40,7 @@ dependencies:
   bubble: ^1.1.9+1
   flutter_facebook_login:
   google_sign_in:
+  sweetalert:
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +49,7 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
+  test:
 
 
 # For information on the generic Dart part of this file, see the
