@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -8,9 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:tinder_clone/pages/root_app.dart';
 
-
 class SplashScreen extends StatefulWidget {
-
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -19,15 +16,16 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(new Duration(seconds: 2),(){
+    Timer(new Duration(seconds: 2), () {
       Navigator.pop(context);
-      Navigator.push(context, MaterialPageRoute(builder: (context) =>  LoginScreen())) ;
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context) ;
+    ScreenUtil.init(context);
 
     return Scaffold(
       backgroundColor: Colors.pinkAccent,

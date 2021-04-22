@@ -41,6 +41,8 @@ dependencies:
   flutter_facebook_login:
   google_sign_in:
   sweetalert:
+  cloud_firestore_mocks:
+  get:
 
 dev_dependencies:
   flutter_test:

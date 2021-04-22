@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tinder_clone/pages/login_screen.dart';
 import 'package:tinder_clone/pages/root_app.dart';
 import 'package:tinder_clone/pages/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';

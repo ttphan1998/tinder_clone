@@ -74,13 +74,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           new Icon(
                             Tinder_clone.iconfinder_338_tinder_logo_4375488__1_,
                             color: Colors.white,
-                            size: ScreenUtil().setSp(180.0),
+                            size: 60,
                           ),
-                          new SizedBox(width: ScreenUtil().setWidth(10.0)),
+                          new SizedBox(width: 0),
                           new Text(
                             "tinder",
                             style: new TextStyle(
-                                fontSize: ScreenUtil().setSp(140.0),
+                                fontSize: 60,
                                 letterSpacing: 1.2,
                                 fontWeight: FontWeight.w800,
                                 color: Colors.white),
@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
               new Expanded(
                   flex: 3,
                   child: new Padding(
-                    padding: EdgeInsets.all(ScreenUtil().setWidth(75.0)),
+                    padding: EdgeInsets.all(30),
                     child: new Column(
                       children: <Widget>[
                         new Text(
@@ -99,10 +99,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: new TextStyle(
                               color: Colors.white, fontWeight: FontWeight.w500),
                         ),
-                        new SizedBox(height: ScreenUtil().setHeight(50.0)),
+                        new SizedBox(height: 10),
                         new Container(
                           width: double.infinity,
-                          height: ScreenUtil().setHeight(105.0),
+                          height: 30,
                           child: new RaisedButton(
                             shape: new RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(90.0)),
@@ -127,10 +127,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
-                        new SizedBox(height: ScreenUtil().setHeight(30.0)),
+                        new SizedBox(height: 15.0),
                         new Container(
                           width: double.infinity,
-                          height: ScreenUtil().setHeight(105.0),
+                          height: 30,
                           child: new RaisedButton(
                             shape: new RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(90.0)),
@@ -166,12 +166,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
-                        new SizedBox(height: ScreenUtil().setHeight(70.0)),
+                        new SizedBox(height: 15),
                         new Text(
                           "Trouble logging in?",
                           style: new TextStyle(
                             color: Colors.white,
-                            fontSize: ScreenUtil().setSp(50.0),
+                            fontSize: 20,
                             fontWeight: FontWeight.w600,
                           ),
                         )

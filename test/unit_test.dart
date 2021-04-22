@@ -1,13 +1,19 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tinder_clone/pages/explore_page.dart';
 import 'package:flutter/material.dart';
 import 'package:tinder_clone/main.dart';
 import 'package:tinder_clone/pages/login_screen.dart';
 import 'package:tinder_clone/pages/phone_login.dart';
-import 'package:tinder_clone/pages/splash_screen.dart';
-import 'package:flutter_tindercard/flutter_tindercard.dart';
+import 'package:firebase_core/firebase_core.dart';
+import './mock.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main(){
+
+void main() async{
+  setupFirebaseAuthMocks();
+
+  setUpAll(() async {
+    await Firebase.initializeApp();
+  });
   testWidgets("Login screen", (WidgetTester tester) async{
     await tester.pumpWidget(MaterialApp(home: LoginScreen()));
     expect(find.text("tinder"), findsWidgets);
@@ -53,17 +59,6 @@ void main(){
     await tester.tap(continueButton);
     expect(PhoneNumberScreen.errorMessage, "Please type your phone number");
   });
-  testWidgets("Phone login correctly", (WidgetTester tester) async{
-    final continueButton = find.byKey(ValueKey("CONTINUE"));
-    final phoneNumber = find.byKey(ValueKey("Phone number"));
-    final countryCode = find.byKey(ValueKey("Country code"));
-
-    await tester.pumpWidget(MaterialApp(home: PhoneNumberScreen()));
-    await tester.enterText(countryCode, "84");
-    await tester.enterText(phoneNumber, "0123456789");
-    await tester.tap(continueButton);
-    expect(PhoneNumberScreen.loginResult, true);
-  });
   testWidgets("Phone login country code invalid", (WidgetTester tester) async{
     final continueButton = find.byKey(ValueKey("CONTINUE"));
     final phoneNumber = find.byKey(ValueKey("Phone number"));
@@ -71,7 +66,7 @@ void main(){
 
     await tester.pumpWidget(MaterialApp(home: PhoneNumberScreen()));
     await tester.enterText(countryCode, "84123123");
-    await tester.enterText(phoneNumber, "0123456789");
+    await tester.enterText(phoneNumber, "123456789");
     await tester.tap(continueButton);
     expect(PhoneNumberScreen.errorMessage, "Country code is invalid");
   });
@@ -96,5 +91,16 @@ void main(){
     await tester.enterText(phoneNumber, "012");
     await tester.tap(continueButton);
     expect(PhoneNumberScreen.errorMessage, "Phone number and country code is invalid");
+  });
+  testWidgets("Phone login correctly", (WidgetTester tester) async{
+    final continueButton = find.byKey(ValueKey("CONTINUE"));
+    final phoneNumber = find.byKey(ValueKey("Phone number"));
+    final countryCode = find.byKey(ValueKey("Country code"));
+
+    await tester.pumpWidget(MaterialApp(home: PhoneNumberScreen()));
+    await tester.enterText(countryCode, "84");
+    await tester.enterText(phoneNumber, "123456789");
+    await tester.tap(continueButton);
+    expect(PhoneNumberScreen.errorMessage, null);
   });
 }

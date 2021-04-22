@@ -26,9 +26,7 @@ class PhoneNumberScreen extends StatelessWidget {
         elevation: 0.0,
       ),
       body: new Padding(
-        padding: EdgeInsets.only(
-            left: ScreenUtil().setWidth(50.0),
-            right: ScreenUtil().setWidth(50.0)),
+        padding: EdgeInsets.all(10.0),
         child: new Column(
           children: <Widget>[
             new Expanded(
@@ -40,20 +38,20 @@ class PhoneNumberScreen extends StatelessWidget {
                       child: new Text(
                         "My number is",
                         style: new TextStyle(
-                            fontSize: ScreenUtil().setSp(100.0),
+                            fontSize: 45.0,
                             fontWeight: FontWeight.w600,
                             color: Colors.black54),
                       ),
                     ),
                     new SizedBox(
-                      height: ScreenUtil().setHeight(80.0),
+                      height: 80.0,
                     ),
                     new Row(
                       children: <Widget>[
                         new Expanded(
                           flex: 3,
                           child: new TextField(
-                            key: Key("Country code"),
+                            key: Key('Country code'),
                             controller: countryCode,
                             keyboardType: TextInputType.number,
                             cursorColor: Theme.of(context).primaryColor,
@@ -66,12 +64,12 @@ class PhoneNumberScreen extends StatelessWidget {
                           ),
                         ),
                         new SizedBox(
-                          width: ScreenUtil().setWidth(20.0),
+                          width: 10.0,
                         ),
                         new Expanded(
                             flex: 7,
                             child: new TextField(
-                              key: Key("Phone number"),
+                              key: Key('Phone number'),
                               controller: phoneNumber,
                               keyboardType: TextInputType.number,
                               cursorColor: Theme.of(context).primaryColor,
@@ -81,17 +79,17 @@ class PhoneNumberScreen extends StatelessWidget {
                       ],
                     ),
                     new SizedBox(
-                      height: ScreenUtil().setHeight(60.0),
+                      height: 32,
                     ),
                     new Text(
                       'When you tap "Continue",Tinder will send a text a with verification code. Message and data rates may apply.\nThe verified phone number can be used to log in. Learn what happens when your number changes.',
                       style: new TextStyle(
-                          fontSize: ScreenUtil().setSp(37.0),
+                          fontSize: 14,
                           fontWeight: FontWeight.w500,
                           color: Colors.black54),
                     ),
                     new SizedBox(
-                      height: ScreenUtil().setHeight(40.0),
+                      height: 23,
                     ),
                     new GestureDetector(
                       onTap: () => phoneLogin(context),
@@ -108,16 +106,16 @@ class PhoneNumberScreen extends StatelessWidget {
                                 end: Alignment.centerLeft,
                                 stops: [0.0, 0.1, 1.0])),
                         width: double.infinity,
-                        height: ScreenUtil().setHeight(110.0),
+                        height: 52,
                         child: Center(
                           child: new Text(
                             "CONTINUE",
-                            key: Key("CONTINUE"),
+                            key: Key('CONTINUE'),
                             style: new TextStyle(
                                 color: Colors.white,
                                 letterSpacing: 1.2,
                                 fontWeight: FontWeight.w600,
-                                fontSize: ScreenUtil().setSp(45.0)),
+                                fontSize: 23),
                           ),
                         ),
                       ),
@@ -142,10 +140,22 @@ class PhoneNumberScreen extends StatelessWidget {
       errorMessage = "Phone number must not be empty";
       SweetAlert.show(context, subtitle: errorMessage, style: SweetAlertStyle.error);
     }
-    else {
+    else if(phoneNumber.text.length != 9 && countryCode.text.length != 2){
+      errorMessage = "Phone number and country code is invalid";
+      SweetAlert.show(context, subtitle: errorMessage, style: SweetAlertStyle.error);
+    }
+    else if(phoneNumber.text.length != 9){
+      errorMessage = "Phone number is invalid";
+      SweetAlert.show(context, subtitle: errorMessage, style: SweetAlertStyle.error);
+    }
+    else if(countryCode.text.length != 2){
+      errorMessage = "Country code is invalid";
+      SweetAlert.show(context, subtitle: errorMessage, style: SweetAlertStyle.error);
+
+    }
+    else if(phoneNumber.text.length == 9 && countryCode.text.length == 2){
       errorMessage = null;
       loginResult = true;
-      Navigator.pop(context);
       Navigator.pop(context);
       Navigator.push(context, MaterialPageRoute(builder: (context) => RootPage()));
     }

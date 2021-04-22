@@ -4,7 +4,7 @@ import 'package:flutter_tindercard/flutter_tindercard.dart';
 import 'package:tinder_clone/data/explore_json.dart';
 import 'package:tinder_clone/data/icons.dart';
 import 'package:tinder_clone/theme/colors.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+//import 'package:firebase_storage/firebase_storage.dart';
 
 class ExplorePage extends StatefulWidget {
   @override
@@ -91,7 +91,7 @@ class _ExplorePageState extends State<ExplorePage>
                           child: Row(
                             children: [
                               Container(
-                                width: size.width * 0.72,
+                                width: size.width * 0.621955,
                                 child: Column(
                                   children: [
                                     Row(
